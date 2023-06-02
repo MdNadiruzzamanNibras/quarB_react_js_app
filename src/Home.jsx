@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
 
 
 
@@ -10,6 +12,10 @@ const Home = () => {
         .then(res=>res.json())
         .then(data=> setdatas(data))
     },[])
+    const navigate = useNavigate()
+    const PurchaseNavigate = id=>{
+        navigate(`/detai/${id}`)
+    }
     console.log(datas);
     return (
         <div>
@@ -28,9 +34,14 @@ const Home = () => {
             datas.map((data, index)=> <tr key={data.score}>
                 <td>{index+1}</td>
                 <td>{data?.show?.name}</td>
-                <td>{data?.show?.officialSite ?data?.show?.officialSite :'No site availbale'}</td>
-                <td><Button className="ms-5" variant="success">Details</Button></td>
-              </tr> )
+                <td>{data?.show?.officialSite ? data?.show?.officialSite :'No site availbale'}</td>
+                <td><Button className="ms-5 " onClick={()=>PurchaseNavigate(data?.show?.id)} variant="light">
+                   
+                  Details
+                 
+                  </Button></td>
+              </tr> 
+              )
         }
         
         
